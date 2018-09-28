@@ -1,6 +1,6 @@
 # react-from-json
 
-> Recursively render React components from JSON
+> Render React components from JSON
 
 [![NPM](https://img.shields.io/npm/v/react-from-json.svg)](https://www.npmjs.com/package/react-from-json) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -12,7 +12,7 @@
 
 ```jsx
 <Burger chain="Wahlburger">
-  <Patty variant="impossible">
+  <Patty variant="impossible" />
 </Burger>
 ```
 
