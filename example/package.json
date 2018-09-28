@@ -5,11 +5,13 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "evergreen-ui": "^4.0.0-41",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-from-json": "link:..",
     "react-scripts": "^1.1.4",
-    "react-from-json": "link:.."
+    "react-syntax-highlighter": "^8.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

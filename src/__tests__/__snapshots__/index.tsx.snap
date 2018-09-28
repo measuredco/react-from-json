@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactFromJSON to render a recursive entry 1`] = `
+<div>
+  <div>
+    <div>
+      sesame bun
+    </div>
+  </div>
+  <div>
+    cheese
+  </div>
+  <div>
+    <div>
+      large patty
+      <div>
+        impossible
+      </div>
+    </div>
+    <div>
+      large patty
+      <div>
+        beef
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      sesame bun
+    </div>
+  </div>
+</div>
+`;

@@ -16,19 +16,16 @@ export interface ReactFromJSONProps<MappingType, ComponentsType> {
   mapping: MappingType;
 }
 
-interface DefaultComponentsType {}
-
 /*
-* Walk component tree and recursively render, starting at a given ComponentRef
-* 
-* Loosely typed so we don't need to update chameleon for every component. It
-* should be safe to do since everything else typed up to this point.
-*/
+ * Walk a component tree and recursively render it.
+ */
 class ReactFromJSON<
-  MappingType,
-  ComponentsType = DefaultComponentsType
+  MappingType = object,
+  ComponentsType = object
 > extends React.Component<ReactFromJSONProps<MappingType, ComponentsType>> {
-  resolveProp = (prop: any, index?: number): any => {
+  public counter = {};
+
+  resolveProp = (prop: any): any => {
     if (Array.isArray(prop)) {
       return prop.map(this.resolveProp);
     } else if (typeof prop === "object") {
@@ -40,7 +37,7 @@ class ReactFromJSON<
       ) {
         const componentRef: ComponentRef = prop;
 
-        return this.componentLookup(componentRef, index);
+        return this.componentLookup(componentRef);
 
         // Handle nested components
       } else if (
@@ -50,14 +47,14 @@ class ReactFromJSON<
       ) {
         const component: Component = prop;
 
-        return this.renderComponent(component, index);
+        return this.renderComponent(component);
       }
     }
 
     return prop;
   };
 
-  componentLookup = (componentRef: ComponentRef, index = 0) => {
+  componentLookup = (componentRef: ComponentRef) => {
     const { components } = this.props;
     const { componentIndex, componentType } = componentRef;
 
@@ -67,23 +64,34 @@ class ReactFromJSON<
 
     const component = components[componentType][componentIndex];
 
-    return this.renderComponent(component, index);
+    return this.renderComponent(component);
   };
 
-  renderComponent(component: Component, index = 0) {
-    const { mapping } = this.props;
+  getNextKey(type: string) {
+    this.counter[type] = this.counter[type] || 0;
+    return `${type}_${this.counter[type]++}`;
+  }
 
+  renderComponent(component: Component) {
+    const { mapping } = this.props;
     const { type, props } = component;
     const resolvedProps = {};
+    const key = this.getNextKey(type);
 
-    const key = `${type}_${index}`;
+    const propKeys = Object.keys(props);
 
-    for (const propKey of Object.keys(props)) {
+    for (let index = 0; index < propKeys.length; index++) {
+      const propKey = propKeys[index];
       const prop = props[propKey];
+
       resolvedProps[propKey] = this.resolveProp(prop);
     }
 
     const MappedComponent = mapping[type];
+
+    if (typeof MappedComponent === "undefined") {
+      throw `Tried to render the "${type}" component, but it's not specified in your mapping.`;
+    }
 
     return <MappedComponent key={key} {...resolvedProps} />;
   }
