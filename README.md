@@ -26,7 +26,7 @@ from JSON
     "children": {
       "type": "Patty",
       "props": {
-        "variant": "Impossible"
+        "variant": "impossible"
       }
     }
   }
@@ -92,10 +92,8 @@ const entry = {
   props: {
     chain: "Wahlburger",
     patty: {
-      {
-        componentIndex: 0,
-        componentType: "Patty"
-      }
+      componentIndex: 0,
+      componentType: "Patty"
     }
   }
 };
@@ -112,17 +110,20 @@ const mapping = {
 
 const components = {
   Patty: [
-    type: "Patty",
-    props: {
-      variant: "Impossible"
+    {
+      type: "Patty",
+      props: {
+        variant: "Impossible"
+      }
     }
   ]
-}
-
+};
 
 const Example = () => {
-  return <ReactFromJSON entry={entry} mapping={mapping} components={components} />;
-}
+  return (
+    <ReactFromJSON entry={entry} mapping={mapping} components={components} />
+  );
+};
 ```
 
 The `ComponentRef` prop looks like:
