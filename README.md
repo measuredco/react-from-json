@@ -79,7 +79,9 @@ const Example = () => {
 
 `react-from-json` also supports flat, non-recursive structures via the special `<ComponentLookup />` component. This is useful when working with typed systems like GraphQL, and you need to avoid unions.
 
-The `<ComponentLookup />` simply maps to another component defined in a `components` object. If you were using it in React, you would use it like:
+#### The `<ComponentLookup />` component
+
+`<ComponentLookup />` simply maps to another component defined in a `components` object. If you were using it in React, you would use it like:
 
 ```jsx
 <ComponentLookup componentType="Button" componentIndex={0} />
