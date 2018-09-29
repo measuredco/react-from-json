@@ -1,6 +1,6 @@
 # react-from-json
 
-> Render React components from JSON
+> Declare your React component tree in JSON
 
 [![NPM](https://img.shields.io/npm/v/react-from-json.svg)](https://www.npmjs.com/package/react-from-json) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 

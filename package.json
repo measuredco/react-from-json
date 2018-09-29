@@ -1,7 +1,7 @@
 {
   "name": "react-from-json",
   "version": "0.1.0",
-  "description": "Recursively render React components from JSON",
+  "description": "Declare your React component tree in JSON",
   "author": "hydrateio",
   "license": "MIT",
   "repository": "hydrateio/react-from-json",
