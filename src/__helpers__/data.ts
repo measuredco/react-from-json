@@ -46,18 +46,27 @@ export const flatEntry = {
   props: {
     chain: "Wahlburger",
     bun: {
-      componentType: "Bun",
-      componentIndex: 0
+      type: "ComponentLookup",
+      props: {
+        componentType: "Bun",
+        componentIndex: 0
+      }
     },
     cheese: true,
     children: [
       {
-        componentType: "Patty",
-        componentIndex: 0
+        type: "ComponentLookup",
+        props: {
+          componentType: "Patty",
+          componentIndex: 0
+        }
       },
       {
-        componentType: "Patty",
-        componentIndex: 1
+        type: "ComponentLookup",
+        props: {
+          componentType: "Patty",
+          componentIndex: 1
+        }
       }
     ]
   }
@@ -78,8 +87,11 @@ export const flatComponents: Components = {
       props: {
         size: "large",
         ingredient: {
-          componentType: "PattyIngredient",
-          componentIndex: 0
+          type: "ComponentLookup",
+          props: {
+            componentType: "PattyIngredient",
+            componentIndex: 0
+          }
         }
       }
     },
@@ -88,8 +100,11 @@ export const flatComponents: Components = {
       props: {
         size: "large",
         ingredient: {
-          componentType: "PattyIngredient",
-          componentIndex: 1
+          type: "ComponentLookup",
+          props: {
+            componentType: "PattyIngredient",
+            componentIndex: 1
+          }
         }
       }
     }

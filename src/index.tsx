@@ -5,12 +5,19 @@ export interface Component {
   props: object;
 }
 
-export interface ComponentRef {
+interface ComponentLookupProps {
   componentType: string;
   componentIndex: number;
 }
 
-export interface ReactFromJSONProps<MappingType, ComponentsType> {
+export interface ComponentLookup {
+  props: ComponentLookupProps;
+}
+
+export interface ReactFromJSONProps<
+  MappingType = object,
+  ComponentsType = object
+> {
   components?: ComponentsType;
   entry: Component;
   mapping: MappingType;
@@ -25,22 +32,36 @@ class ReactFromJSON<
 > extends React.Component<ReactFromJSONProps<MappingType, ComponentsType>> {
   public counter = {};
 
+  public internalMapping: object = {};
+
+  constructor(props: any) {
+    super(props);
+
+    this.internalMapping = {
+      ComponentLookup: this.ComponentLookup
+    };
+  }
+
+  ComponentLookup = ({
+    componentIndex,
+    componentType
+  }: ComponentLookupProps) => {
+    const { components } = this.props;
+
+    if (!components) {
+      throw "Detected `ComponentLookup` prop on a component, but `components` is undefined. You need to define `components` if using `ComponentLookup` props.";
+    }
+
+    const component = components[componentType][componentIndex];
+
+    return this.renderComponent(component);
+  };
+
   resolveProp = (prop: any): any => {
     if (Array.isArray(prop)) {
       return prop.map(this.resolveProp);
     } else if (typeof prop === "object") {
-      // Handle componentRef
       if (
-        // Typeguard
-        prop["componentType"] !== undefined &&
-        prop["componentIndex"] !== undefined
-      ) {
-        const componentRef: ComponentRef = prop;
-
-        return this.componentLookup(componentRef);
-
-        // Handle nested components
-      } else if (
         // Typeguard
         prop["type"] !== undefined &&
         prop["props"] !== undefined
@@ -52,19 +73,6 @@ class ReactFromJSON<
     }
 
     return prop;
-  };
-
-  componentLookup = (componentRef: ComponentRef) => {
-    const { components } = this.props;
-    const { componentIndex, componentType } = componentRef;
-
-    if (!components) {
-      throw "Detected `ComponentRef` prop on a component, but `components` is undefined. You need to define `components` if using `ComponentRef` props.";
-    }
-
-    const component = components[componentType][componentIndex];
-
-    return this.renderComponent(component);
   };
 
   getNextKey(type: string) {
@@ -87,7 +95,7 @@ class ReactFromJSON<
       resolvedProps[propKey] = this.resolveProp(prop);
     }
 
-    const MappedComponent = mapping[type];
+    const MappedComponent = this.internalMapping[type] || mapping[type];
 
     if (typeof MappedComponent === "undefined") {
       throw `Tried to render the "${type}" component, but it's not specified in your mapping.`;

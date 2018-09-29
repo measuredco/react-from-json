@@ -43,8 +43,6 @@ npm install --save react-from-json
 
 ## Usage
 
-### With recursion
-
 ```jsx
 import React from "react";
 import ReactFromJSON from "react-from-json";
@@ -77,11 +75,37 @@ const Example = () => {
 };
 ```
 
-### Without recursion
+### Flat trees
 
-`react-from-json` also supports non-recursive structures via the special `ComponentRef` prop. This is useful when working with typed systems like GraphQL, and you need to avoid unions.
+`react-from-json` also supports flat, non-recursive structures via the special `<ComponentLookup />` component. This is useful when working with typed systems like GraphQL, and you need to avoid unions.
 
-Here's the same example as above, instead using a `ComponentRef` for `entry.props.patty`, and providing a separate `components` object.
+The `<ComponentLookup />` simply maps to another component defined in a `components` object. If you were using it in React, you would use it like:
+
+```jsx
+<ComponentLookup componentType="Button" componentIndex={0} />
+```
+
+which would look up the `Button` component at index `0` in the `components` object, resolving to:
+
+```jsx
+<Button>Hello, World!</Button>
+```
+
+For `react-from-json` we use JSON, so we would write this:
+
+```json
+{
+  "type": "ComponentLookup",
+  "props": {
+    "componentType": "Button",
+    "componentIndex": 0
+  }
+}
+```
+
+#### Example
+
+Here's the same example as above, instead using a `<ComponentLookup />` for `entry.props.patty`, and providing a separate `components` object.
 
 ```jsx
 import React from "react";
@@ -92,8 +116,11 @@ const entry = {
   props: {
     chain: "Wahlburger",
     patty: {
-      componentIndex: 0,
-      componentType: "Patty"
+      type: "ComponentLookup",
+      props: {
+        componentIndex: 0,
+        componentType: "Patty"
+      }
     }
   }
 };
@@ -124,15 +151,6 @@ const Example = () => {
     <ReactFromJSON entry={entry} mapping={mapping} components={components} />
   );
 };
-```
-
-The `ComponentRef` prop looks like:
-
-```ts
-interface ComponentRef {
-  componentIndex: number;
-  componentType: string;
-}
 ```
 
 ## With TypeScript
