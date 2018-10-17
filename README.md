@@ -90,7 +90,7 @@ const Example = () => {
 which would look up the `Button` component at index `0` in the `components` object, resolving to:
 
 ```jsx
-<Button>Hello, World!</Button>
+<Button id={0}>Hello, World!</Button>
 ```
 
 For `react-from-json` we use JSON, so we would write this:
@@ -104,6 +104,8 @@ For `react-from-json` we use JSON, so we would write this:
   }
 }
 ```
+
+> The `id` here is set by the `componentIndex`, since we didn't specify one in the JSON. See <a href="#a-note-on-ids">this comment on IDs</a> for more information.
 
 #### Example
 
@@ -155,7 +157,11 @@ const Example = () => {
 };
 ```
 
-## With TypeScript
+### A note on ids
+
+`react-from-json` will map `id` from the root of your component JSON to the React component's `id` prop. Likewise, if you specify `id` under `props`, it will use this. If you use the `<ComponentLookup />` component, `react-from-json` will use the array index as `id` unless another `id` is specified. **Your `id` will always take priority.**
+
+### With TypeScript
 
 `react-from-json` supports generic types for use with TypeScript.
 

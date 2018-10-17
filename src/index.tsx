@@ -54,7 +54,13 @@ class ReactFromJSON<
 
     const component = components[componentType][componentIndex];
 
-    return this.renderComponent(component);
+    return this.renderComponent({
+      ...component,
+      props: {
+        id: component.id || componentIndex, // Map id to component props if specified on root. Otherwise, use index.
+        ...component.props
+      }
+    });
   };
 
   resolveProp = (prop: any): any => {

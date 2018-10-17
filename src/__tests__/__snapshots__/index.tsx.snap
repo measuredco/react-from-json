@@ -11,13 +11,17 @@ exports[`ReactFromJSON to render a flat entry with a components attribute 1`] = 
     cheese
   </div>
   <div>
-    <div>
+    <div
+      id="0"
+    >
       large patty
       <div>
         impossible
       </div>
     </div>
-    <div>
+    <div
+      id="1"
+    >
       large patty
       <div>
         beef
@@ -43,13 +47,17 @@ exports[`ReactFromJSON to render a recursive entry 1`] = `
     cheese
   </div>
   <div>
-    <div>
+    <div
+      id="undefined"
+    >
       large patty
       <div>
         impossible
       </div>
     </div>
-    <div>
+    <div
+      id="undefined"
+    >
       large patty
       <div>
         beef

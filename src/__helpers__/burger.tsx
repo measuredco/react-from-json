@@ -5,13 +5,15 @@ export const Bun = ({ variant }: { variant: string }) => (
 );
 
 export const Patty = ({
+  id,
   size,
   ingredient
 }: {
+  id: number;
   size: string;
   ingredient: React.ReactNode;
 }) => (
-  <div>
+  <div id={`${id}`}>
     {`${size} patty`}
     {ingredient}
   </div>
