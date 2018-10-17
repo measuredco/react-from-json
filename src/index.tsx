@@ -64,7 +64,9 @@ class ReactFromJSON<
   };
 
   resolveProp = (prop: any): any => {
-    if (Array.isArray(prop)) {
+    if (prop === null) {
+      return prop;
+    } else if (Array.isArray(prop)) {
       return prop.map(this.resolveProp);
     } else if (typeof prop === "object") {
       if (
