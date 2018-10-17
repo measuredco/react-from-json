@@ -1,6 +1,6 @@
 {
   "name": "react-from-json",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Declare your React component tree in JSON",
   "author": "hydrateio",
   "license": "MIT",
