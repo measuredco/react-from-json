@@ -1,3 +1,13 @@
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/hydrateio/react-from-json/compare/v0.3.0...v0.4.0) (2018-10-26)
+
+
+### Features
+
+* use array index for unique keys, and add propIndex prop ([c5df9d4](https://github.com/hydrateio/react-from-json/commit/c5df9d4))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/hydrateio/react-from-json/compare/v0.2.0...v0.3.0) (2018-10-17)
 
