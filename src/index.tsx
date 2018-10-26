@@ -8,6 +8,7 @@ export interface Component {
 interface ComponentLookupProps {
   componentType: string;
   componentIndex: number;
+  propIndex?: number;
 }
 
 export interface ComponentLookup {
@@ -44,7 +45,8 @@ class ReactFromJSON<
 
   ComponentLookup = ({
     componentIndex,
-    componentType
+    componentType,
+    propIndex
   }: ComponentLookupProps) => {
     const { components } = this.props;
 
@@ -58,12 +60,13 @@ class ReactFromJSON<
       ...component,
       props: {
         id: component.id || componentIndex, // Map id to component props if specified on root. Otherwise, use index.
+        propIndex: propIndex,
         ...component.props
       }
     });
   };
 
-  resolveProp = (prop: any): any => {
+  resolveProp = (prop: any, index?: number): any => {
     if (prop === null) {
       return prop;
     } else if (Array.isArray(prop)) {
@@ -76,23 +79,25 @@ class ReactFromJSON<
       ) {
         const component: Component = prop;
 
-        return this.renderComponent(component);
+        return this.renderComponent(component, index);
       }
     }
 
     return prop;
   };
 
-  getNextKey(type: string) {
+  getNextKey(type: string, propIndex?: number) {
     this.counter[type] = this.counter[type] || 0;
-    return `${type}_${this.counter[type]++}`;
+    const propIndexKey =
+      typeof propIndex !== "undefined" ? `_${propIndex}` : "";
+    return `${type}_${this.counter[type]++}${propIndexKey}`;
   }
 
-  renderComponent(component: Component) {
+  renderComponent(component: Component, propIndex?: number) {
     const { mapping } = this.props;
     const { type, props } = component;
     const resolvedProps = {};
-    const key = this.getNextKey(type);
+    const key = this.getNextKey(type, propIndex);
 
     const propKeys = Object.keys(props);
 
@@ -109,7 +114,9 @@ class ReactFromJSON<
       throw `Tried to render the "${type}" component, but it's not specified in your mapping.`;
     }
 
-    return <MappedComponent key={key} {...resolvedProps} />;
+    return (
+      <MappedComponent key={key} propIndex={propIndex} {...resolvedProps} />
+    );
   }
 
   render() {

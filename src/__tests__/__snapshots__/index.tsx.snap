@@ -2,8 +2,10 @@
 
 exports[`ReactFromJSON to render a flat entry with a components attribute 1`] = `
 <div>
+  <div />
   <div>
     <div>
+      <div />
       sesame bun
     </div>
   </div>
@@ -14,6 +16,9 @@ exports[`ReactFromJSON to render a flat entry with a components attribute 1`] = 
     <div
       id="0"
     >
+      <div>
+        0
+      </div>
       large patty
       <div>
         impossible
@@ -22,6 +27,9 @@ exports[`ReactFromJSON to render a flat entry with a components attribute 1`] = 
     <div
       id="1"
     >
+      <div>
+        Order: 1
+      </div>
       large patty
       <div>
         beef
@@ -30,6 +38,7 @@ exports[`ReactFromJSON to render a flat entry with a components attribute 1`] = 
   </div>
   <div>
     <div>
+      <div />
       sesame bun
     </div>
   </div>
@@ -38,8 +47,10 @@ exports[`ReactFromJSON to render a flat entry with a components attribute 1`] = 
 
 exports[`ReactFromJSON to render a recursive entry 1`] = `
 <div>
+  <div />
   <div>
     <div>
+      <div />
       sesame bun
     </div>
   </div>
@@ -50,6 +61,9 @@ exports[`ReactFromJSON to render a recursive entry 1`] = `
     <div
       id="undefined"
     >
+      <div>
+        0
+      </div>
       large patty
       <div>
         impossible
@@ -58,6 +72,9 @@ exports[`ReactFromJSON to render a recursive entry 1`] = `
     <div
       id="undefined"
     >
+      <div>
+        Order: 1
+      </div>
       large patty
       <div>
         beef
@@ -66,6 +83,7 @@ exports[`ReactFromJSON to render a recursive entry 1`] = `
   </div>
   <div>
     <div>
+      <div />
       sesame bun
     </div>
   </div>
