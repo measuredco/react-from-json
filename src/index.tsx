@@ -54,6 +54,10 @@ class ReactFromJSON<
       throw "Detected `ComponentLookup` prop on a component, but `components` is undefined. You need to define `components` if using `ComponentLookup` props.";
     }
 
+    if (!components[componentType]) {
+      throw `Detected \`${componentType}\` ComponentLookup, but it's not defined in your \`components\` object.`;
+    }
+
     const component = components[componentType][componentIndex];
 
     return this.renderComponent({
