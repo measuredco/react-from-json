@@ -41,6 +41,34 @@ export const recursiveEntry = {
   }
 };
 
+export const entryWithDifferentShape = {
+  _type: "Burger",
+  chain: "Wahlburger",
+  bun: {
+    _type: "Bun",
+    variant: "sesame"
+  },
+  cheese: true,
+  children: [
+    {
+      _type: "Patty",
+      size: "large",
+      ingredient: {
+        _type: "PattyIngredient",
+        variant: "impossible"
+      }
+    },
+    {
+      _type: "Patty",
+      size: "large",
+      ingredient: {
+        _type: "PattyIngredient",
+        variant: "beef"
+      }
+    }
+  ]
+};
+
 export const flatEntry = {
   type: "Burger",
   props: {

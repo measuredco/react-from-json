@@ -6,6 +6,7 @@ import { Mapping, Components } from "../__helpers__/interfaces";
 import {
   mapping,
   recursiveEntry,
+  entryWithDifferentShape,
   flatEntry,
   flatComponents
 } from "../__helpers__/data";
@@ -20,6 +21,31 @@ describe("ReactFromJSON", () => {
   it("to render a recursive entry", () => {
     const tree = renderer
       .create(<BurgerReactFromJSON entry={recursiveEntry} mapping={mapping} />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it("to render a recursive entry with a non-standard shape", () => {
+    const tree = renderer
+      .create(
+        <BurgerReactFromJSON
+          entry={entryWithDifferentShape}
+          mapping={mapping}
+          mapProp={prop => {
+            if (prop._type) {
+              const { _type, ...props } = prop;
+
+              return {
+                type: _type,
+                props
+              };
+            }
+
+            return prop;
+          }}
+        />
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();
