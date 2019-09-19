@@ -89,3 +89,48 @@ exports[`ReactFromJSON to render a recursive entry 1`] = `
   </div>
 </div>
 `;
+
+exports[`ReactFromJSON to render a recursive entry with a non-standard shape 1`] = `
+<div>
+  <div />
+  <div>
+    <div>
+      <div />
+      sesame bun
+    </div>
+  </div>
+  <div>
+    cheese
+  </div>
+  <div>
+    <div
+      id="undefined"
+    >
+      <div>
+        0
+      </div>
+      large patty
+      <div>
+        impossible
+      </div>
+    </div>
+    <div
+      id="undefined"
+    >
+      <div>
+        Order: 1
+      </div>
+      large patty
+      <div>
+        beef
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <div />
+      sesame bun
+    </div>
+  </div>
+</div>
+`;

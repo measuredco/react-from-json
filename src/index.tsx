@@ -20,7 +20,8 @@ export interface ReactFromJSONProps<
   ComponentsType = object
 > {
   components?: ComponentsType;
-  entry: Component;
+  entry: Component | any;
+  mapProp?: (obj: any) => any;
   mapping: MappingType;
 }
 
@@ -71,23 +72,26 @@ class ReactFromJSON<
   };
 
   resolveProp = (prop: any, index?: number): any => {
-    if (prop === null) {
-      return prop;
-    } else if (Array.isArray(prop)) {
-      return prop.map(this.resolveProp);
-    } else if (typeof prop === "object") {
+    const { mapProp = (p: any) => p } = this.props;
+    const mappedProp = mapProp(prop);
+
+    if (mappedProp === null) {
+      return mappedProp;
+    } else if (Array.isArray(mappedProp)) {
+      return mappedProp.map(this.resolveProp);
+    } else if (typeof mappedProp === "object") {
       if (
         // Typeguard
-        prop["type"] !== undefined &&
-        prop["props"] !== undefined
+        mappedProp["type"] !== undefined &&
+        mappedProp["props"] !== undefined
       ) {
-        const component: Component = prop;
+        const component: Component = mappedProp;
 
         return this.renderComponent(component, index);
       }
     }
 
-    return prop;
+    return mappedProp;
   };
 
   getNextKey(type: string, propIndex?: number) {
@@ -97,7 +101,7 @@ class ReactFromJSON<
     return `${type}_${this.counter[type]++}${propIndexKey}`;
   }
 
-  renderComponent(component: Component, propIndex?: number) {
+  renderComponent(component: Component | any, propIndex?: number) {
     const { mapping } = this.props;
     const { type, props } = component;
     const resolvedProps = {};
@@ -126,7 +130,7 @@ class ReactFromJSON<
   render() {
     const { entry } = this.props;
 
-    return <>{this.renderComponent(entry)}</>;
+    return <>{this.resolveProp(entry)}</>;
   }
 }
 

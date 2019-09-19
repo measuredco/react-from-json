@@ -75,6 +75,48 @@ const Example = () => {
 };
 ```
 
+### Other JSON shapes
+
+If your data doesn't follow the `type` | `props` shape, `react-from-json` makes it easy to map your data on the fly using the `mapProp` prop.
+
+```jsx
+import React from "react";
+import ReactFromJSON from "react-from-json";
+import mapping from "./mapping";
+
+const entryWithDifferentShape = {
+  _type: "Burger",
+  chain: "Wahlburger",
+  children: {
+    _type: "Patty",
+    variant: "Impossible"
+  }
+};
+
+const mapProp = prop => {
+  if (prop._type) {
+    const { _type, ...props } = prop;
+
+    return {
+      type: _type,
+      props
+    };
+  }
+
+  return prop;
+};
+
+const Example = () => {
+  return (
+    <ReactFromJSON
+      entry={entryWithDifferentShape}
+      mapping={mapping}
+      mapProp={mapProp}
+    />
+  );
+};
+```
+
 ### Flat trees
 
 `react-from-json` also supports flat, non-recursive structures via the special `<ComponentLookup />` component. This is useful when working with typed systems like GraphQL, and you need to avoid unions.
