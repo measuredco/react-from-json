@@ -127,7 +127,7 @@ class ReactFromJSON<
     }
 
     return (
-      <MappedComponent key={key} propIndex={propIndex} {...resolvedProps} />
+      <MappedComponent key={key} propIndex={propIndex} _type={type} {...resolvedProps} />
     );
   }
 
