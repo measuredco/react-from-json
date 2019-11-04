@@ -15,6 +15,10 @@ export interface ComponentLookup {
   props: ComponentLookupProps;
 }
 
+export interface WithDefault {
+  default?: any
+}
+
 export interface ReactFromJSONProps<
   MappingType = object,
   ComponentsType = object
@@ -22,7 +26,7 @@ export interface ReactFromJSONProps<
   components?: ComponentsType;
   entry: Component | any;
   mapProp?: (obj: any) => any;
-  mapping: MappingType;
+  mapping: MappingType & WithDefault;
 }
 
 /*
@@ -116,7 +120,7 @@ class ReactFromJSON<
       resolvedProps[propKey] = this.resolveProp(prop);
     }
 
-    const MappedComponent = this.internalMapping[type] || mapping[type];
+    const MappedComponent = this.internalMapping[type] || mapping[type] || mapping.default;
 
     if (typeof MappedComponent === "undefined") {
       throw `Tried to render the "${type}" component, but it's not specified in your mapping.`;
