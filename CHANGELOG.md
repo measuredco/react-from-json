@@ -1,3 +1,14 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/hydrateio/react-from-json/compare/v0.5.0...v0.6.0) (2019-11-04)
+
+
+### Features
+
+* add optional 'default' component mapping, for falling back when component doesn't exist ([8d818a9](https://github.com/hydrateio/react-from-json/commit/8d818a9))
+* pass _type to mapped components ([fc0a56b](https://github.com/hydrateio/react-from-json/commit/fc0a56b))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/hydrateio/react-from-json/compare/v0.4.0...v0.5.0) (2019-09-19)
 
