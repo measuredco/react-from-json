@@ -29,6 +29,10 @@ export interface ReactFromJSONProps<
   mapping: MappingType & WithDefault;
 }
 
+interface ReactFromJSONState {
+  counter: object;
+}
+
 /*
  * Walk a component tree and recursively render it.
  */
@@ -36,9 +40,11 @@ class ReactFromJSON<
   MappingType = object,
   ComponentsType = object
 > extends React.Component<ReactFromJSONProps<MappingType, ComponentsType>> {
-  public counter = {};
-
   public internalMapping: object = {};
+
+  public state: ReactFromJSONState = {
+    counter: {}
+  };
 
   constructor(props: any) {
     super(props);
@@ -75,6 +81,16 @@ class ReactFromJSON<
     });
   };
 
+  static getDerivedStateFromProps(
+    _: ReactFromJSONProps,
+    state: ReactFromJSONState
+  ) {
+    return {
+      ...state,
+      counter: {}
+    };
+  }
+
   resolveProp = (prop: any, index?: number): any => {
     const { mapProp = (p: any) => p } = this.props;
     const mappedProp = mapProp(prop);
@@ -99,10 +115,10 @@ class ReactFromJSON<
   };
 
   getNextKey(type: string, propIndex?: number) {
-    this.counter[type] = this.counter[type] || 0;
+    this.state.counter[type] = this.state.counter[type] || 0;
     const propIndexKey =
       typeof propIndex !== "undefined" ? `_${propIndex}` : "";
-    return `${type}_${this.counter[type]++}${propIndexKey}`;
+    return `${type}_${this.state.counter[type]++}${propIndexKey}`;
   }
 
   renderComponent(component: Component | any, propIndex?: number) {
