@@ -16,7 +16,7 @@ export interface ComponentLookup {
 }
 
 export interface WithDefault {
-  default?: any
+  default?: any;
 }
 
 export interface ReactFromJSONProps<
@@ -91,14 +91,16 @@ class ReactFromJSON<
     };
   }
 
-  resolveProp = (prop: any, index?: number): any => {
+  resolveProp = (prop: any, propKey?: string, index?: number): any => {
     const { mapProp = (p: any) => p } = this.props;
     const mappedProp = mapProp(prop);
 
     if (mappedProp === null) {
       return mappedProp;
     } else if (Array.isArray(mappedProp)) {
-      return mappedProp.map(this.resolveProp);
+      return mappedProp.map((prop, index) =>
+        this.resolveProp(prop, propKey, index)
+      );
     } else if (typeof mappedProp === "object") {
       if (
         // Typeguard
@@ -107,7 +109,7 @@ class ReactFromJSON<
       ) {
         const component: Component = mappedProp;
 
-        return this.renderComponent(component, index);
+        return this.renderComponent(component, propKey, index);
       }
     }
 
@@ -121,29 +123,40 @@ class ReactFromJSON<
     return `${type}_${this.state.counter[type]++}${propIndexKey}`;
   }
 
-  renderComponent(component: Component | any, propIndex?: number) {
+  renderComponent(
+    component: Component | any,
+    propKey?: string,
+    propIndex?: number
+  ) {
     const { mapping } = this.props;
     const { type, props } = component;
     const resolvedProps = {};
     const key = this.getNextKey(type, propIndex);
 
-    const propKeys = Object.keys(props);
+    const childPropKeys = Object.keys(props);
 
-    for (let index = 0; index < propKeys.length; index++) {
-      const propKey = propKeys[index];
-      const prop = props[propKey];
+    for (let index = 0; index < childPropKeys.length; index++) {
+      const childPropKey = childPropKeys[index];
+      const prop = props[childPropKey];
 
-      resolvedProps[propKey] = this.resolveProp(prop);
+      resolvedProps[childPropKey] = this.resolveProp(prop, childPropKey);
     }
 
-    const MappedComponent = this.internalMapping[type] || mapping[type] || mapping.default;
+    const MappedComponent =
+      this.internalMapping[type] || mapping[type] || mapping.default;
 
     if (typeof MappedComponent === "undefined") {
       throw `Tried to render the "${type}" component, but it's not specified in your mapping.`;
     }
 
     return (
-      <MappedComponent key={key} propIndex={propIndex} _type={type} {...resolvedProps} />
+      <MappedComponent
+        key={key}
+        propIndex={propIndex}
+        propKey={propKey}
+        _type={type}
+        {...resolvedProps}
+      />
     );
   }
 
