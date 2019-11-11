@@ -75,6 +75,15 @@ const Example = () => {
 };
 ```
 
+### Props passed to your components
+
+Props passed to your mapped components include
+
+- `propKey` - name of the prop that rendered your component
+- `propIndex` - index of your component if using [flat trees](#flat-trees)
+- `_type` - the `type` value for your component
+- `...props` - the resolved value of your `props` object, with relevant child nodes rendered as components
+
 ### Other JSON shapes
 
 If your data doesn't follow the `type` | `props` shape, `react-from-json` makes it easy to map your data on the fly using the `mapProp` prop.
