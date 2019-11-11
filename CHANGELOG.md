@@ -1,3 +1,18 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/hydrateio/react-from-json/compare/v0.6.0...v0.7.0) (2019-11-11)
+
+
+### Bug Fixes
+
+* retain component keys on render ([d384dc9](https://github.com/hydrateio/react-from-json/commit/d384dc9))
+
+
+### Features
+
+* pass propKey to mapped components ([1f13968](https://github.com/hydrateio/react-from-json/commit/1f13968))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/hydrateio/react-from-json/compare/v0.5.0...v0.6.0) (2019-11-04)
 
