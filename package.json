@@ -4,7 +4,7 @@
   "description": "Declare your React component tree in JSON",
   "author": "hydrateio",
   "license": "MIT",
-  "repository": "hydrateio/react-from-json",
+  "repository": "chrisvxd/react-from-json",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
