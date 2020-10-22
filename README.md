@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/react-from-json.svg)](https://www.npmjs.com/package/react-from-json) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[Example](http://hydrateio.github.io/react-from-json/)
+[Example](http://measuredco.github.io/react-from-json/)
 
 ## Intro
 
@@ -248,4 +248,4 @@ const Example = () => {
 
 ## License
 
-MIT © [hydrateio](https://github.com/hydrateio)
+MIT © [Measured Co.](https://github.com/measuredco)
