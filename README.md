@@ -248,4 +248,4 @@ const Example = () => {
 
 ## License
 
-MIT © [Measured Co.](https://github.com/measuredco)
+MIT © [Measured Corporation Ltd](https://github.com/measuredco)
