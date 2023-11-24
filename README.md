@@ -11,22 +11,21 @@
 `react-from-json` lets you render React
 
 ```jsx
-<Burger chain="Wahlburger">
-  <Patty variant="impossible" />
-</Burger>
+<Foo>
+  <Bar baz="Hello, world" />
+</Foo>
 ```
 
 from JSON
 
 ```json
 {
-  "type": "Burger",
+  "type": "Foo",
   "props": {
-    "chain": "Wahlburger",
     "children": {
-      "type": "Patty",
+      "type": "Bar",
       "props": {
-        "variant": "impossible"
+        "baz": "Hello, world"
       }
     }
   }
@@ -48,26 +47,24 @@ import React from "react";
 import ReactFromJSON from "react-from-json";
 
 const entry = {
-  type: "Burger",
+  type: "Foo",
   props: {
-    chain: "Wahlburger",
     children: {
-      type: "Patty",
+      type: "Bar",
       props: {
-        variant: "Impossible"
+        baz: "Hello, world"
       }
     }
   }
 };
 
 const mapping = {
-  Burger: ({ chain, children }) => (
+  Foo: ({ children }) => (
     <div>
-      <h1>{chain}</h1>
       <div>{children}</div>
     </div>
   ),
-  Patty: ({ variant }) => <span>{variant}</span>
+  Bar: ({ baz }) => <span>{baz}</span>
 };
 
 const Example = () => {
@@ -94,11 +91,10 @@ import ReactFromJSON from "react-from-json";
 import mapping from "./mapping";
 
 const entryWithDifferentShape = {
-  _type: "Burger",
-  chain: "Wahlburger",
+  _type: "Foo",
   children: {
-    _type: "Patty",
-    variant: "Impossible"
+    _type: "Bar",
+    baz: "Hello, world"
   }
 };
 
@@ -160,42 +156,40 @@ For `react-from-json` we use JSON, so we would write this:
 
 #### Example
 
-Here's the same example as above, instead using a `<ComponentLookup />` for `entry.props.patty`, and providing a separate `components` object.
+Here's the same example as above, instead using a `<ComponentLookup />` for `entry.props.baz`, and providing a separate `components` object.
 
 ```jsx
 import React from "react";
 import ReactFromJSON from "react-from-json";
 
 const entry = {
-  type: "Burger",
+  type: "Foo",
   props: {
-    chain: "Wahlburger",
-    patty: {
+    baz: {
       type: "ComponentLookup",
       props: {
         componentIndex: 0,
-        componentType: "Patty"
+        componentType: "Bar"
       }
     }
   }
 };
 
 const mapping = {
-  Burger: ({ chain, patty }) => (
+  Foo: ({ baz }) => (
     <div>
-      <h1>{chain}</h1>
-      <div>{patty}</div>
+      <div>{baz}</div>
     </div>
   ),
-  Patty: ({ variant }) => <span>{variant}</span>
+  Bar: ({ baz }) => <span>{baz}</span>
 };
 
 const components = {
-  Patty: [
+  Bar: [
     {
-      type: "Patty",
+      type: "Bar",
       props: {
-        variant: "Impossible"
+        baz: "Hello, world"
       }
     }
   ]
@@ -221,15 +215,15 @@ import { entry, mapping, components } from "./aboveExample";
 import ReactFromJSON from "react-from-json";
 
 interface Components {
-  Patty: object[];
+  Bar: object[];
 }
 
 interface Mapping {
-  Burger: React.ReactNode;
-  Patty: React.ReactNode;
+  Foo: React.ReactNode;
+  Bar: React.ReactNode;
 }
 
-class BurgerReactFromJSON extends ReactFromJSON<Mapping, Components> {
+class FooReactFromJSON extends ReactFromJSON<Mapping, Components> {
   render(): JSX.Element {
     return super.render();
   }
@@ -237,7 +231,7 @@ class BurgerReactFromJSON extends ReactFromJSON<Mapping, Components> {
 
 const Example = () => {
   return (
-    <BurgerReactFromJSON
+    <FooReactFromJSON
       entry={entry}
       mapping={mapping}
       components={components}
