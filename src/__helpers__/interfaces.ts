@@ -5,8 +5,8 @@ export interface Components {
 }
 
 export interface Mapping {
-  Bun: React.ReactNode;
-  Burger: React.ReactNode;
-  Patty: React.ReactNode;
-  PattyIngredient: React.ReactNode;
+  Bun: React.FC<any>;
+  Burger: React.FC<any>;
+  Patty: React.FC<any>;
+  PattyIngredient: React.FC<any>;
 }

@@ -4,8 +4,6 @@
 
 [![NPM](https://img.shields.io/npm/v/react-from-json.svg)](https://www.npmjs.com/package/react-from-json) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[Example](http://measuredco.github.io/react-from-json/)
-
 ## Intro
 
 `react-from-json` lets you render React
@@ -52,10 +50,10 @@ const entry = {
     children: {
       type: "Bar",
       props: {
-        baz: "Hello, world"
-      }
-    }
-  }
+        baz: "Hello, world",
+      },
+    },
+  },
 };
 
 const mapping = {
@@ -64,7 +62,7 @@ const mapping = {
       <div>{children}</div>
     </div>
   ),
-  Bar: ({ baz }) => <span>{baz}</span>
+  Bar: ({ baz }) => <span>{baz}</span>,
 };
 
 const Example = () => {
@@ -94,17 +92,17 @@ const entryWithDifferentShape = {
   _type: "Foo",
   children: {
     _type: "Bar",
-    baz: "Hello, world"
-  }
+    baz: "Hello, world",
+  },
 };
 
-const mapProp = prop => {
+const mapProp = (prop) => {
   if (prop._type) {
     const { _type, ...props } = prop;
 
     return {
       type: _type,
-      props
+      props,
     };
   }
 
@@ -169,10 +167,10 @@ const entry = {
       type: "ComponentLookup",
       props: {
         componentIndex: 0,
-        componentType: "Bar"
-      }
-    }
-  }
+        componentType: "Bar",
+      },
+    },
+  },
 };
 
 const mapping = {
@@ -181,7 +179,7 @@ const mapping = {
       <div>{baz}</div>
     </div>
   ),
-  Bar: ({ baz }) => <span>{baz}</span>
+  Bar: ({ baz }) => <span>{baz}</span>,
 };
 
 const components = {
@@ -189,10 +187,10 @@ const components = {
     {
       type: "Bar",
       props: {
-        baz: "Hello, world"
-      }
-    }
-  ]
+        baz: "Hello, world",
+      },
+    },
+  ],
 };
 
 const Example = () => {
@@ -231,11 +229,7 @@ class FooReactFromJSON extends ReactFromJSON<Mapping, Components> {
 
 const Example = () => {
   return (
-    <FooReactFromJSON
-      entry={entry}
-      mapping={mapping}
-      components={components}
-    />
+    <FooReactFromJSON entry={entry} mapping={mapping} components={components} />
   );
 };
 ```
